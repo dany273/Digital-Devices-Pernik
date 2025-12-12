@@ -21,17 +21,10 @@
       background:#0d47a1; color:white; padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-size:16px;
     }
     footer { background:#0d47a1; color:#fff; text-align:center; padding:20px; margin-top:40px; }
-    /* Анимации */
     .fade-in { animation: fadeIn 1.2s ease forwards; opacity:0; }
     .slide-up { animation: slideUp 1s ease forwards; opacity:0; }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(25px); opacity:0; }
-      to { transform: translateY(0); opacity:1; }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(25px); opacity:0; } to { transform: translateY(0); opacity:1; } }
   </style>
 </head>
 <body>
@@ -64,18 +57,18 @@
     <div id="contacts" class="card slide-up">
       <h2>Контакти</h2>
       <p><strong>Град:</strong> Перник</p>
-      <p><strong>Телефон:</strong> 08XX XXX XXX</p>
-      <p><strong>Email:</strong> service@example.com</p>
+      <p><strong>Телефон:</strong> 0892781858</p>
+      <p><strong>Email:</strong> service.pernik@abv.bg</p>
       <p><strong>Работно време:</strong> Пон – Съб: 09:00 – 19:00</p>
-      <p><a href="tel:08XXXXXXXX" style="background:#1565c0;color:white;padding:10px 15px;border-radius:8px;text-decoration:none;">Обади се</a></p>
+      <p><a href="tel:0892781858" style="background:#1565c0;color:white;padding:10px 15px;border-radius:8px;text-decoration:none;">Обади се</a></p>
     </div>
 
     <div id="message" class="card slide-up">
       <h2>Оставете съобщение</h2>
-      <form class="contact-form">
-        <input type="text" placeholder="Вашето име" required>
-        <input type="email" placeholder="Вашият email" required>
-        <textarea rows="5" placeholder="Вашето съобщение"></textarea>
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/xldqagqa" method="POST">
+        <input type="text" name="name" placeholder="Вашето име" required>
+        <input type="email" name="email" placeholder="Вашият email" required>
+        <textarea name="message" rows="5" placeholder="Вашето съобщение" required></textarea>
         <button type="submit">Изпрати</button>
       </form>
     </div>
@@ -111,5 +104,28 @@
   <footer>
     © 2025 Компютърен сервиз Перник – Всички права запазени
   </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          alert('Съобщението е изпратено! Благодарим!'); // показваме alert вместо div
+          form.reset();
+        } else {
+          alert('Възникна грешка. Моля, опитайте отново.');
+        }
+      }).catch(() => {
+        alert('Възникна грешка. Моля, опитайте отново.');
+      });
+    });
+  </script>
 </body>
 </html>
