@@ -1,0 +1,6 @@
+# Позволява на всички ботове да индексират сайта
+User-agent: *
+Disallow:
+
+# Местоположение на sitemap файла
+Sitemap: https://dany273.github.io/Digital-Devices-Pernik/sitemap.xml
